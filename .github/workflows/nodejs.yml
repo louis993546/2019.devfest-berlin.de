@@ -19,6 +19,7 @@ jobs:
         npm ci
         npm run build
     - name: deploy
+      run: |
         cat build/index.html
         echo "will deploy now......"
 #     - name: upload
