@@ -1,16 +1,13 @@
-name: Node CI
+name: Publish website
 
 on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [12.x]
-
     steps:
     - uses: actions/checkout@v1
     - name: Use Node.js ${{ matrix.node-version }}
@@ -21,19 +18,28 @@ jobs:
       run: |
         npm ci
         npm run build
-  deploy:
-    runs-on: ubuntu-latest
-    strategy:
-        matrix:
-          note-version: [12.x]
-    steps:
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: deploy
-        run: |
-          echo "fake deploy"
-          cat build/index.html
-          # npm run deploy
-          # npx babel-node ./internals/import-default-data.js
+    - name: deploy
+        cat build/index.html
+        echo "will deploy now......"
+#     - name: upload
+#       uses: actions/upload-artifact@v1
+#       with:
+#         name: build
+#         path: build/
+#   deploy:
+#     runs-on: ubuntu-latest
+#     strategy:
+#         matrix:
+#           note-version: [12.x]
+#     steps:
+#       - name: download
+#       - name: Use Node.js ${{ matrix.node-version }}
+#         uses: actions/setup-node@v1
+#         with:
+#           node-version: ${{ matrix.node-version }}
+#       - name: deploy
+#         run: |
+#           echo "fake deploy"
+#           cat build/index.html
+#           # npm run deploy
+#           # npx babel-node ./internals/import-default-data.js
